@@ -1,0 +1,27 @@
+@prefix ns1: <http://www.example.com/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+ns1:has_caliber rdfs:label "Is the caliber of the ordnance measured in mm" ;
+    rdfs:domain ns1:Tank ;
+    rdfs:range ns1:diameter_in_mm ;
+    rdfs:subPropertyOf ns1:has_ordnance .
+
+ns1:my_vehicle a ns1:PZ_3 .
+
+ns1:producedBy rdfs:range ns1:country .
+
+ns1:pz_3 rdfs:label "Panzerkampfwagen III ausf. J1" .
+
+ns1:topSpeed rdfs:label "displays top speed of vehicle in km/h" ;
+    rdfs:domain ns1:Vehicle .
+
+ns1:Medium_Tank rdfs:label "Class containing all tanks that qualify for the label of medium tank in the tank triad" ;
+    rdfs:subClassOf ns1:Tank .
+
+ns1:PZ_3 a ns1:Medium_Tank ;
+    ns1:has_caliber ns1:fifty_mm ;
+    ns1:producedBy ns1:Germany .
+
+ns1:Tank rdfs:label "Fighting vehicle featuring thick armor, heavy weapons and 2 or more tracks" ;
+    rdfs:SubClassOf ns1:Vehicle .
+

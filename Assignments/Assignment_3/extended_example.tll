@@ -1,20 +1,5 @@
-@prefix dbo: <http://dbpedia.org/ontology/> .
-@prefix dbr: <http://dbpedia.org/resource/> .
 @prefix ex: <http://example.com/kad/> .
-@prefix ns1: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-
-dbr:Amsterdam dbo:populationTotal "907976" ;
-    ns1:lat "52.3667" ;
-    ns1:long "4.9" .
-
-dbr:Berlin dbo:populationTotal "3677472" ;
-    ns1:lat "52.52" ;
-    ns1:long "13.405" .
-
-dbr:Rotterdam dbo:populationTotal "651157" ;
-    ns1:lat "51.9167" ;
-    ns1:long "4.5" .
 
 ex:Netherlands a ex:Country ;
     ex:contains ex:Ijsselmeer ;
