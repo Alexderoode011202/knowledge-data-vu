@@ -1,0 +1,202 @@
+@prefix : <http://www.semanticweb.org/alexd/test_environment#> .
+@prefix te: <http://www.semanticweb.org/alexd/test_environment/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/alexd/test_environment#> .
+
+<http://www.semanticweb.org/alexd/test_environment> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/alexd/test_environment/PlaysARoleIn
+te:PlaysARoleIn rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/alexd/test_environment/HasArmorLevel
+te:HasArmorLevel rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/HasGoodGun
+te:HasGoodGun rdf:type owl:DatatypeProperty .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/isCreator
+te:isCreator rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/alexd/test_environment/Actor
+te:Actor rdf:type owl:Class ;
+         owl:equivalentClass [ rdf:type owl:Restriction ;
+                               owl:onProperty te:PlaysARoleIn ;
+                               owl:someValuesFrom te:Movie
+                             ] ,
+                             [ rdf:type owl:Restriction ;
+                               owl:onProperty te:HasArmorLevel ;
+                               owl:hasValue "Heavy Armor"
+                             ] ;
+         rdfs:subClassOf te:Person .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Air_Hunter_SPAA
+te:Air_Hunter_SPAA rdf:type owl:Class ;
+                   rdfs:subClassOf te:SPAA .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Armor_Value
+te:Armor_Value rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Heavy_Tank
+te:Heavy_Tank rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( te:Tank
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty te:HasArmorLevel ;
+                                                           owl:hasValue "High"
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf te:Tank ;
+              owl:disjointWith te:Light_Tank ,
+                               te:Medium_Tank ,
+                               te:SPAA .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Heavy_Tank_Destroyers
+te:Heavy_Tank_Destroyers rdf:type owl:Class ;
+                         rdfs:subClassOf te:Tank_Destroyer .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Light_Tank
+te:Light_Tank rdf:type owl:Class ;
+              rdfs:subClassOf te:Tank ;
+              owl:disjointWith te:Medium_Tank ,
+                               te:SPAA .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Medium_Tank
+te:Medium_Tank rdf:type owl:Class ;
+               rdfs:subClassOf te:Tank ;
+               owl:disjointWith te:SPAA .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Movie
+te:Movie rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Person
+te:Person rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/SPAA
+te:SPAA rdf:type owl:Class ;
+        rdfs:subClassOf te:Tank .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Strong_Gunned_Heavy_Tank
+te:Strong_Gunned_Heavy_Tank rdf:type owl:Class ;
+                            owl:equivalentClass [ owl:intersectionOf ( te:Heavy_Tank
+                                                                       [ rdf:type owl:Restriction ;
+                                                                         owl:onProperty te:HasGoodGun ;
+                                                                         owl:hasValue "true"^^xsd:boolean
+                                                                       ]
+                                                                     ) ;
+                                                  rdf:type owl:Class
+                                                ] ;
+                            rdfs:subClassOf te:Heavy_Tank .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Strong_Gunned_Light_Tank
+te:Strong_Gunned_Light_Tank rdf:type owl:Class ;
+                            rdfs:subClassOf te:Light_Tank .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Tank
+te:Tank rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Tank_Destroyer
+te:Tank_Destroyer rdf:type owl:Class ;
+                  rdfs:subClassOf te:Tank .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Tank_Hunter_SPAA
+te:Tank_Hunter_SPAA rdf:type owl:Class ;
+                    rdfs:subClassOf te:SPAA .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Weak_Gunned_Heavy_Tank
+te:Weak_Gunned_Heavy_Tank rdf:type owl:Class ;
+                          owl:equivalentClass [ owl:intersectionOf ( te:Heavy_Tank
+                                                                     [ rdf:type owl:Restriction ;
+                                                                       owl:onProperty te:HasGoodGun ;
+                                                                       owl:hasValue "false"^^xsd:boolean
+                                                                     ]
+                                                                   ) ;
+                                                rdf:type owl:Class
+                                              ] ;
+                          rdfs:subClassOf te:Heavy_Tank .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/alexd/test_environment/Bradd_Pit
+te:Bradd_Pit rdf:type owl:NamedIndividual ,
+                      te:Person ;
+             te:PlaysARoleIn <http://www.semanticweb.org/alexd/test_environment/BullshitMovie#1> .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Churchill_mk.1
+te:Churchill_mk.1 rdf:type owl:NamedIndividual ,
+                           te:Tank ;
+                  owl:differentFrom te:KV-1 ;
+                  te:HasArmorLevel "High" ;
+                  te:HasGoodGun "false"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Fear_and_Loathing_in_Las_Vegas
+te:Fear_and_Loathing_in_Las_Vegas rdf:type owl:NamedIndividual ,
+                                           te:Movie .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/Johny_Depp
+te:Johny_Depp rdf:type owl:NamedIndividual ,
+                       te:Person ;
+              te:PlaysARoleIn te:Fear_and_Loathing_in_Las_Vegas .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/KV-1
+te:KV-1 rdf:type owl:NamedIndividual ,
+                 te:Tank ;
+        te:HasArmorLevel "High" ;
+        te:HasGoodGun "true"^^xsd:boolean .
+
+
+###  http://www.semanticweb.org/alexd/test_environment/BullshitMovie#1
+<http://www.semanticweb.org/alexd/test_environment/BullshitMovie#1> rdf:type owl:NamedIndividual ,
+                                                                             te:Movie .
+
+
+#################################################################
+#    Annotations
+#################################################################
+
+owl:Thing rdfs:comment "This is a weird ontology"@en .
+
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi

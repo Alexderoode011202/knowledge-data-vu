@@ -1,0 +1,240 @@
+@prefix : <http://www.test_environment.com/> .
+@prefix te: <http://www.test_environment.com/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.test_environment.com/> .
+
+<http://www.test_environment.com/> rdf:type owl:Ontology ;
+                                    rdfs:comment "This is my experimental ontology"@en .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.test_environment.com/BuiltBy
+te:BuiltBy rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdf:type owl:FunctionalProperty .
+
+
+###  http://www.test_environment.com/HasMainWeapon
+te:HasMainWeapon rdf:type owl:ObjectProperty ;
+                 rdfs:subPropertyOf te:HasWeapon ;
+                 rdf:type owl:InverseFunctionalProperty ;
+                 rdfs:range te:Armament .
+
+
+###  http://www.test_environment.com/HasSecondaryWeapon
+te:HasSecondaryWeapon rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf te:HasWeapon .
+
+
+###  http://www.test_environment.com/HasWeapon
+te:HasWeapon rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.test_environment.com/hasEngine
+te:hasEngine rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.test_environment.com/HasArmorValue
+te:HasArmorValue rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.test_environment.com/HasFullName
+te:HasFullName rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.test_environment.com/HasTurret
+te:HasTurret rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.test_environment.com/Armament
+te:Armament rdf:type owl:Class .
+
+
+###  http://www.test_environment.com/Bomber
+te:Bomber rdf:type owl:Class ;
+          rdfs:subClassOf te:Plane .
+
+
+###  http://www.test_environment.com/Country
+te:Country rdf:type owl:Class .
+
+
+###  http://www.test_environment.com/Engine
+te:Engine rdf:type owl:Class .
+
+
+###  http://www.test_environment.com/Fighter
+te:Fighter rdf:type owl:Class ;
+           rdfs:subClassOf te:Plane .
+
+
+###  http://www.test_environment.com/Heavy_Tank
+te:Heavy_Tank rdf:type owl:Class ;
+              owl:equivalentClass [ owl:intersectionOf ( te:Tank
+                                                         [ rdf:type owl:Restriction ;
+                                                           owl:onProperty te:HasArmorValue ;
+                                                           owl:hasValue "High"
+                                                         ]
+                                                       ) ;
+                                    rdf:type owl:Class
+                                  ] ;
+              rdfs:subClassOf te:Tank .
+
+
+###  http://www.test_environment.com/Light_Tank
+te:Light_Tank rdf:type owl:Class ;
+              rdfs:subClassOf te:Tank .
+
+
+###  http://www.test_environment.com/Plane
+te:Plane rdf:type owl:Class ;
+         rdfs:subClassOf te:Vehicle .
+
+
+###  http://www.test_environment.com/SPAA
+te:SPAA rdf:type owl:Class ;
+        rdfs:subClassOf te:Tank .
+
+
+###  http://www.test_environment.com/Tank
+te:Tank rdf:type owl:Class ;
+        rdfs:subClassOf te:Vehicle .
+
+
+###  http://www.test_environment.com/Tank_Hunter
+te:Tank_Hunter rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( te:Tank
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty te:HasTurret ;
+                                                            owl:hasValue "false"^^xsd:boolean
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] ;
+               rdfs:subClassOf te:Tank .
+
+
+###  http://www.test_environment.com/Vehicle
+te:Vehicle rdf:type owl:Class .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.test_environment.com/Crusader_Mk.1
+te:Crusader_Mk.1 rdf:type owl:NamedIndividual ,
+                          te:Light_Tank .
+
+
+###  http://www.test_environment.com/FW190
+te:FW190 rdf:type owl:NamedIndividual ,
+                  te:Fighter .
+
+
+###  http://www.test_environment.com/Germany
+te:Germany rdf:type owl:NamedIndividual ,
+                    te:Country .
+
+
+###  http://www.test_environment.com/Great-Brittain
+te:Great-Brittain rdf:type owl:NamedIndividual ,
+                           te:Country .
+
+
+###  http://www.test_environment.com/HE111
+te:HE111 rdf:type owl:NamedIndividual ,
+                  te:Bomber .
+
+
+###  http://www.test_environment.com/Jagdpanther
+te:Jagdpanther rdf:type owl:NamedIndividual ,
+                        te:Tank_Hunter .
+
+
+###  http://www.test_environment.com/KV-1
+te:KV-1 rdf:type owl:NamedIndividual ,
+                 te:Tank ;
+        te:HasArmorValue "High" .
+
+
+###  http://www.test_environment.com/Kugelblitz
+te:Kugelblitz rdf:type owl:NamedIndividual ,
+                       te:SPAA ;
+              te:BuiltBy te:Germany .
+
+
+###  http://www.test_environment.com/Lancaster
+te:Lancaster rdf:type owl:NamedIndividual ,
+                      te:Bomber .
+
+
+###  http://www.test_environment.com/MG34
+te:MG34 rdf:type owl:NamedIndividual ,
+                 te:Armament ;
+        te:HasSecondaryWeapon te:MG34 .
+
+
+###  http://www.test_environment.com/Pz_II_F
+te:Pz_II_F rdf:type owl:NamedIndividual ,
+                    te:Light_Tank ;
+           te:HasSecondaryWeapon te:MG34 .
+
+
+###  http://www.test_environment.com/SU-152
+te:SU-152 rdf:type owl:NamedIndividual ,
+                   te:Tank ;
+          te:HasMainWeapon <http://www.test_environment.com/152mmHowitzerM1937> ;
+          te:HasTurret "false"^^xsd:boolean .
+
+
+###  http://www.test_environment.com/Soviet-Union
+te:Soviet-Union rdf:type owl:NamedIndividual ,
+                         te:Country .
+
+
+###  http://www.test_environment.com/Spitfire_Mk.24
+te:Spitfire_Mk.24 rdf:type owl:NamedIndividual ,
+                           te:Fighter .
+
+
+###  http://www.test_environment.com/Test_Tank
+te:Test_Tank rdf:type owl:NamedIndividual ;
+             te:HasArmorValue "High" .
+
+
+###  http://www.test_environment.com/Tiger_II_P
+te:Tiger_II_P rdf:type owl:NamedIndividual ,
+                       te:Heavy_Tank .
+
+
+###  http://www.test_environment.com/ZiS-43
+te:ZiS-43 rdf:type owl:NamedIndividual ,
+                   te:SPAA ;
+          te:BuiltBy te:Soviet-Union .
+
+
+###  http://www.test_environment.com/152mmHowitzerM1937
+<http://www.test_environment.com/152mmHowitzerM1937> rdf:type owl:NamedIndividual ,
+                                                              te:Armament .
+
+
+###  Generated by the OWL API (version 4.5.25.2023-02-15T19:15:49Z) https://github.com/owlcs/owlapi
