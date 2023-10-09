@@ -106,7 +106,8 @@ te:Light_Tank rdf:type owl:Class ;
 
 ###  http://www.test_environment.com/Plane
 te:Plane rdf:type owl:Class ;
-         rdfs:subClassOf te:Vehicle .
+         rdfs:subClassOf te:Vehicle ;
+         owl:disjointWith te:Tank .
 
 
 ###  http://www.test_environment.com/SPAA
